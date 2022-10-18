@@ -8,14 +8,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddToCartType extends AbstractType
+class CartItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('quantity');
-        $builder->add('add', SubmitType::class, [
-            'label' => 'Add to cart'
-        ]);
+        $builder
+            ->add('quantity')
+            ->add('remove', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
