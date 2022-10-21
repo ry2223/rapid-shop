@@ -57,6 +57,7 @@ class Order
                 $existingItem->setQuantity(
                     $existingItem->getQuantity() + $item->getQuantity()
                 );
+
                 return $this;
             }
         }
@@ -74,6 +75,15 @@ class Order
             if ($item->getOrderRef() === $this) {
                 $item->setOrderRef(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function removeItems(): self
+    {
+        foreach ($this->getItems() as $item) {
+            $this->removeItem($item);
         }
 
         return $this;
@@ -111,15 +121,6 @@ class Order
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function removeItems(): self
-    {
-        foreach ($this->getItems() as $item) {
-            $this->removeItem($item);
-        }
 
         return $this;
     }
