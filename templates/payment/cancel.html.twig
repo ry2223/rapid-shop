@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Failure{% endblock %}
+
+{% block body %}
+	<h2>We are sorry but the payment failed...</h2>
+    <p>
+		Go back to the
+		<a href="{{ path('home') }}">shop page</a>
+	</p>
+{% endblock %}
