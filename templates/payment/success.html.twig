@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	{{ encore_entry_link_tags('checkout') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('checkout') }}
+{% endblock %}
+
 {% block title %}Payment Success{% endblock %}
 
 {% block body %}
-	<h2>Thanks for your order!</h2>
+	<h1>Thanks for your order!</h2>
 	<p>
 		Go back to the
 		<a href="{{ path('home') }}">shop page</a>

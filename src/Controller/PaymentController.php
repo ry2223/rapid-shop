@@ -11,14 +11,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PaymentController extends AbstractController
 {
-    #[Route('/payment', name: 'payment')]
-    public function index(): Response
-    {
-        return $this->render('payment/payment.html.twig', [
-            'controller_name' => 'PaymentController',
-        ]);
-    }
-
     #[Route('/checkout', name: 'checkout')]
     public function checkout($stripeSK): Response
     {
