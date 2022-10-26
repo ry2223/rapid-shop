@@ -2,35 +2,17 @@
 
 namespace App\Controller;
 
-use Stripe\Checkout\Session;
+use App\Checkout\CheckoutSession;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Stripe\Stripe;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PaymentController extends AbstractController
 {
     #[Route('/checkout', name: 'checkout')]
-    public function checkout($stripeSK): Response
+    public function checkout(CheckoutSession $checkoutSession, $stripeSK): Response
     {
-        Stripe::setApiKey($stripeSK);
-
-        $session = Session::create([
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'usd',
-                    'product_data' => [
-                        'name' => 'T-shirt',
-                    ],
-                    'unit_amount' => 2000,
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
+        $session = $checkoutSession->createSession($stripeSK);
 
         return $this->redirect($session->url, 303);
     }
@@ -38,6 +20,8 @@ class PaymentController extends AbstractController
     #[Route('/success-url', name: 'success_url')]
     public function successUrl(): Response
     {
+        // TODO: add clearing the cart
+
         return $this->render('payment/success.html.twig', []);
     }
 

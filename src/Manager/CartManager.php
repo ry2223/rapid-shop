@@ -20,7 +20,7 @@ class CartManager
         $cart = $this->cartSessionStorage->getCart();
 
         if (!$cart) {
-            $cart = $this->cartFactory->create();
+            $cart = $this->orderFactory->create();
         }
 
         return $cart;

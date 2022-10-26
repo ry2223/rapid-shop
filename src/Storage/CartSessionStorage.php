@@ -13,12 +13,12 @@ class CartSessionStorage
 
     public function __construct(
         private RequestStack $requestStack,
-        private OrderRepository $cartRepository
+        private OrderRepository $orderRepository
     ) {}
 
     public function getCart(): ?Order
     {
-        return $this->cartRepository->findOneBy([
+        return $this->orderRepository->findOneBy([
             'id' => $this->getCartId(),
             'status' => Order::STATUS_CART
         ]);
